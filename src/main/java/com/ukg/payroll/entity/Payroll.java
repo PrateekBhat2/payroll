@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "payroll")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class Payroll {
+public class Payroll extends BaseEntity{
     @Id
     private Long transactionId;
     private Long employeeId;
