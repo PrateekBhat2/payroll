@@ -4,17 +4,27 @@ import com.ukg.payroll.dto.PayrollDto;
 import com.ukg.payroll.dto.ResponseDto;
 import com.ukg.payroll.service.IPayrollService;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@AllArgsConstructor
 public class PayrollController {
-    private IPayrollService iPayrollService;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    private final IPayrollService iPayrollService;
+
+    public PayrollController(IPayrollService iPayrollService) {
+        this.iPayrollService = iPayrollService;
+    }
 
     @PostMapping("/create")
     public ResponseEntity<ResponseDto> createPayroll(@RequestBody PayrollDto payrollDto){
@@ -52,5 +62,11 @@ public class PayrollController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new ResponseDto("Unable to delete", HttpStatus.BAD_REQUEST));
         }
+    }
+
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(buildVersion);
     }
 }
