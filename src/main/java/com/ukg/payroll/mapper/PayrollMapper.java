@@ -1,5 +1,6 @@
 package com.ukg.payroll.mapper;
 
+import com.ukg.payroll.dto.PayrollDetailsDto;
 import com.ukg.payroll.dto.PayrollDto;
 import com.ukg.payroll.entity.Payroll;
 
@@ -18,5 +19,13 @@ public class PayrollMapper {
         payrollDto.setPayrollDate(payroll.getPayrollDate());
         payrollDto.setFinalAmount(payroll.getFinalAmount());
         return payrollDto;
+    }
+
+    public static PayrollDetailsDto mapToPayrollDetailsDto(Payroll payroll, PayrollDetailsDto payrollDetailsDto){
+        payrollDetailsDto.setTransactionId(payroll.getTransactionId());
+        payrollDetailsDto.setEmployeeId(payroll.getEmployeeId());
+        payrollDetailsDto.setPayrollDate(payroll.getPayrollDate());
+        payrollDetailsDto.setFinalAmount(payroll.getFinalAmount());
+        return payrollDetailsDto;
     }
 }
